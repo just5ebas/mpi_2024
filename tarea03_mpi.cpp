@@ -55,7 +55,7 @@ int main(int argc, char **argv) {
 
         int suma_ranks[nprocs];
 
-        suma_ranks[0] = sumar(data + ((nprocs - 1) * count), count);
+        suma_ranks[0] = sumar(data + ((nprocs - 1) * count), size - ((nprocs - 1) * count));
 
         std::printf("%d", suma_ranks[0]);
 
@@ -74,11 +74,17 @@ int main(int argc, char **argv) {
         std::printf("Suma total: %d\n", sumaTotal);
 
     } else {
-        int data[5];
+        MPI_Status status;
+        int count;
 
-        MPI_Recv(data, 5, MPI_INT, 0, 1, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+        MPI_Probe(0, 0, MPI_COMM_WORLD, &status);
+        MPI_Get_count(&status, MPI_INT, &count);
 
-        int suma_parcial = sumar(data, 2);
+        int data[count];
+
+        MPI_Recv(data, count, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+
+        int suma_parcial = sumar(data, count);
 
         MPI_Send(&suma_parcial, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
     }
