@@ -80,7 +80,7 @@ int main(int argc, char **argv) {
         MPI_Probe(0, 0, MPI_COMM_WORLD, &status);
         MPI_Get_count(&status, MPI_INT, &count);
 
-        int data[count];
+        int *data = new int[count];
 
         MPI_Recv(data, count, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 
