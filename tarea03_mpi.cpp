@@ -7,7 +7,7 @@
 #include <cmath>
 
 std::vector<int> read_file() {
-    std::fstream fs("./datos.txt", std::ios::in);
+    std::fstream fs("./datos2.txt", std::ios::in);
     std::string line;
 
     std::vector<int> ret;
