@@ -7,7 +7,7 @@
 #include <cmath>
 
 std::vector<int> read_file() {
-    std::fstream fs("./datos2.txt", std::ios::in);
+    std::fstream fs("./datos.txt", std::ios::in);
     std::string line;
 
     std::vector<int> ret;
@@ -56,8 +56,6 @@ int main(int argc, char **argv) {
         int suma_ranks[nprocs];
 
         suma_ranks[0] = sumar(data + ((nprocs - 1) * count), size - ((nprocs - 1) * count));
-
-        std::printf("%d", suma_ranks[0]);
 
         for (int rank_id = 1; rank_id < nprocs; rank_id++) {
             MPI_Recv(&suma_ranks[rank_id], 1, MPI_INT, rank_id, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
