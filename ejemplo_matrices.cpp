@@ -79,6 +79,8 @@ int main(int argc, char **argv) {
             std::printf("%.0f, ", c[i]);
         }
 
+        std::printf("\n");
+
 
     } else {
         std::vector<double> A_local(MATRIX_DIMENSION * rows_per_rank);
